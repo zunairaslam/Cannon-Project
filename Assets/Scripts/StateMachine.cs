@@ -13,8 +13,6 @@ public abstract class StateMachine : MonoBehaviour
         }
         CurrentState = state;
         CurrentState.OnStateEnter();
-
-        //CurrentState.Idle();
         Debug.Log("State Machine");
     }
 }

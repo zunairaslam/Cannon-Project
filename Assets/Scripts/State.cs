@@ -12,10 +12,4 @@ public abstract class State
     public virtual void OnStateEnter() { }
     public virtual void OnStateUpdate(FireCanon FireCanon) { }
     public virtual void OnStateExit() { }
-
-    //public virtual void RegularShooting() { }
-    //public virtual void ExecuteAfterTime() { }
-    //public virtual void ExecuteAfterTimeTwo() { }
-    //public virtual void ScaleShooting() { }
-    //public virtual void CyclingColor() { }
 }

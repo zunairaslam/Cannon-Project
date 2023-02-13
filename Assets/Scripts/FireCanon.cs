@@ -2,7 +2,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Numerics;
 using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
@@ -19,8 +18,6 @@ public class FireCanon : StateMachine
     public Transform barrel;
     public float scrollIncrements = 100;
 
-    //public float minRotate = -10f;
-    //public float maxRotate = 10f;
 
     public float shootSpeed;
 
@@ -55,7 +52,7 @@ public class FireCanon : StateMachine
     ShootingSound sound;
     public ParticleSystem muzzleFlash;
 
-    private ShootingMode shootingMode;
+    //private ShootingMode shootingMode;
 
     public float radius = 10f;
 
@@ -154,7 +151,6 @@ public class FireCanon : StateMachine
     void Visiualize()
     {
         LaunchData launchdata = CalculateVelocity();
-        Vector3 previousDrawPoint = pof.transform.position;
         var pointList = new List<Vector3>();
 
         for (int i = 0; i <= resolution; i++)
@@ -163,10 +159,6 @@ public class FireCanon : StateMachine
             Vector3 distplacement1 = launchdata.initialVelocity * simulateTime + Vector3.up * gravity * simulateTime * simulateTime / 2f;
             Vector3 drawPoint = pof.position + distplacement1;
             pointList.Add(drawPoint);
-            //Debug.DrawLine(previousDrawPoint, drawPoint, Color.red);
-
-            //Debug.Log(i + " " + drawPoint);
-            // previousDrawPoint = drawPoint;
         }
         lineVisual.positionCount = pointList.Count;
         lineVisual.SetPositions(pointList.ToArray());
@@ -240,9 +232,7 @@ public class FireCanon : StateMachine
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Debug.Log("shoot 1");
-            //_state = ShootingState.RegularShooting;
             SetState(new ShootModeOne(this));
-            //CurrentState.RegularShooting();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
