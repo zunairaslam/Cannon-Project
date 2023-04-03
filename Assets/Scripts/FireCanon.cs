@@ -9,8 +9,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class FireCanon : StateMachine
 {
+    #region  CannonVariable
 
-    private ShootingState _state;
+    //private ShootingState _state;
 
     public GameObject cannonball;
     public float cannonballSpeed = 20;
@@ -69,14 +70,15 @@ public class FireCanon : StateMachine
     public GameObject cube;
     public Material mt;
     public Color32[] colors;
+    #endregion
 
     void Start()
     {
         cam = Camera.main;
         lineVisual = GetComponent<LineRenderer>();
         sound = GetComponent<ShootingSound>();
-        _state = ShootingState.Idle;
-        SetState(new Begin(this));
+        //_state = ShootingState.Idle;
+        SetState(new ShootModeOne(this));
     }
     void Update()
     {
@@ -89,6 +91,7 @@ public class FireCanon : StateMachine
         CurrentState.OnStateUpdate(this);
         
     }
+    #region CannonMovement
     void CanonMovement()
     {
         if (target == null)
@@ -131,6 +134,8 @@ public class FireCanon : StateMachine
 
         }
     }
+    #endregion
+    #region ArrowMovement
     void CursorMovement()
     {
         var screenPoint = Input.mousePosition;
@@ -138,6 +143,8 @@ public class FireCanon : StateMachine
         Vector3 pos = Input.mousePosition/*Camera.main.ScreenToWorldPoint(screenPoint)*/;
         cursor.transform.position = pos;
     }
+    #endregion
+    #region ShootPhysics
     void LaunchProjectile()
     {
         Ray camRay = cam.ScreenPointToRay(Input.mousePosition);
@@ -203,6 +210,7 @@ public class FireCanon : StateMachine
             this.timeToTarget = timeToTarget;
         }
     }
+
     public void Shooting()
     {
         V0 = CalculateVelocity().initialVelocity;
@@ -227,6 +235,8 @@ public class FireCanon : StateMachine
 
         }
     }
+    #endregion
+    #region SelectingState
     private void ShootingModesSelection()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -256,9 +266,11 @@ public class FireCanon : StateMachine
             SetState(new ShootModeSix(this));
         }
     }
+
     public void CallCoroutine(IEnumerator coroutine)
     {
         StartCoroutine(coroutine);
     }
+    #endregion
 }
 
